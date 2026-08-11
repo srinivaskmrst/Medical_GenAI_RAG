@@ -1,0 +1,46 @@
+{
+  "document_id": "DOC_011",
+  "document_name": "SCREEN_11_Medication Order Review",
+  "document_type": "screen_definition",
+  "version": "1.0",
+  "workflow_id": "WF_003",
+  "screen_id": "SCREEN_11",
+  "medical_domain": "pharmacy",
+  "effective_date": "2026-01-01",
+  "source": "internal",
+  "access_level": "standard",
+  "disclaimer": "SYNTHETIC TEST DATA \u2014 This document was generated for RAG system development and testing only. It does not represent real clinical guidance, a real hospital policy, or real patient information. Do not use for actual patient care.",
+  "screen_name": "Medication Order Review",
+  "purpose": "Defines the fields, preconditions, and structure of the 'Medication Order Review' screen within workflow WF_003.",
+  "fields": [
+    "Medication Name",
+    "Dose",
+    "Route",
+    "Frequency",
+    "Prescribing Provider"
+  ],
+  "preconditions": [
+    "An active medication order exists for the patient"
+  ],
+  "postconditions": [
+    "All required fields on 'Medication Order Review' are captured and saved before advancing to the next screen."
+  ],
+  "validations": [
+    "Confirm the order has been pharmacist-verified before it appears on this screen",
+    "Confirm dose and route are consistent with the medication's standard formulary entry"
+  ],
+  "common_errors": [
+    "Order displayed before pharmacist verification is complete",
+    "Route selected inconsistent with formulary entry"
+  ],
+  "ui_elements": [
+    "Medication Name input control",
+    "Dose input control",
+    "Route input control",
+    "Frequency input control",
+    "Prescribing Provider input control",
+    "Save button",
+    "Back button",
+    "Help icon"
+  ]
+}

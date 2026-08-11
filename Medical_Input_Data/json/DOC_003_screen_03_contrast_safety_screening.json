@@ -1,0 +1,45 @@
+{
+  "document_id": "DOC_003",
+  "document_name": "SCREEN_03_Contrast Safety Screening",
+  "document_type": "screen_definition",
+  "version": "1.0",
+  "workflow_id": "WF_001",
+  "screen_id": "SCREEN_03",
+  "medical_domain": "radiology",
+  "effective_date": "2026-01-01",
+  "source": "internal",
+  "access_level": "standard",
+  "disclaimer": "SYNTHETIC TEST DATA \u2014 This document was generated for RAG system development and testing only. It does not represent real clinical guidance, a real hospital policy, or real patient information. Do not use for actual patient care.",
+  "screen_name": "Contrast Safety Screening",
+  "purpose": "Defines the fields, preconditions, and structure of the 'Contrast Safety Screening' screen within workflow WF_001.",
+  "fields": [
+    "Contrast Required",
+    "Renal Function Value",
+    "Prior Contrast Reaction",
+    "Allergy List"
+  ],
+  "preconditions": [
+    "Imaging modality has been selected"
+  ],
+  "postconditions": [
+    "All required fields on 'Contrast Safety Screening' are captured and saved before advancing to the next screen."
+  ],
+  "validations": [
+    "Confirm renal function value is on file and within an acceptable range before contrast administration",
+    "Confirm the allergy list has been reviewed for contrast-related allergies",
+    "Confirm any prior contrast reaction is flagged and visible before proceeding"
+  ],
+  "common_errors": [
+    "Contrast marked required with no renal function value on file",
+    "Prior reaction flag not surfaced to the technologist"
+  ],
+  "ui_elements": [
+    "Contrast Required input control",
+    "Renal Function Value input control",
+    "Prior Contrast Reaction input control",
+    "Allergy List input control",
+    "Save button",
+    "Back button",
+    "Help icon"
+  ]
+}

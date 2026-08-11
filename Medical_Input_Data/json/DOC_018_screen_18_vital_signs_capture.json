@@ -1,0 +1,45 @@
+{
+  "document_id": "DOC_018",
+  "document_name": "SCREEN_18_Vital Signs Capture",
+  "document_type": "screen_definition",
+  "version": "1.0",
+  "workflow_id": "WF_004",
+  "screen_id": "SCREEN_18",
+  "medical_domain": "emergency",
+  "effective_date": "2026-01-01",
+  "source": "internal",
+  "access_level": "standard",
+  "disclaimer": "SYNTHETIC TEST DATA \u2014 This document was generated for RAG system development and testing only. It does not represent real clinical guidance, a real hospital policy, or real patient information. Do not use for actual patient care.",
+  "screen_name": "Vital Signs Capture",
+  "purpose": "Defines the fields, preconditions, and structure of the 'Vital Signs Capture' screen within workflow WF_004.",
+  "fields": [
+    "Blood Pressure",
+    "Heart Rate",
+    "Respiratory Rate",
+    "Temperature",
+    "Oxygen Saturation"
+  ],
+  "preconditions": [
+    "Triage acuity scoring has been completed"
+  ],
+  "postconditions": [
+    "All required fields on 'Vital Signs Capture' are captured and saved before advancing to the next screen."
+  ],
+  "validations": [
+    "Confirm all five core vital signs are captured before the patient can proceed to disposition",
+    "Confirm any vital sign outside a defined critical range triggers an on-screen alert"
+  ],
+  "common_errors": [
+    "One or more vital signs left blank and screen advanced regardless"
+  ],
+  "ui_elements": [
+    "Blood Pressure input control",
+    "Heart Rate input control",
+    "Respiratory Rate input control",
+    "Temperature input control",
+    "Oxygen Saturation input control",
+    "Save button",
+    "Back button",
+    "Help icon"
+  ]
+}

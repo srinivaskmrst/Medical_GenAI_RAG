@@ -1,0 +1,41 @@
+{
+  "document_id": "DOC_010",
+  "document_name": "SCREEN_10_Cardiology Report Sign-off",
+  "document_type": "screen_definition",
+  "version": "1.0",
+  "workflow_id": "WF_002",
+  "screen_id": "SCREEN_10",
+  "medical_domain": "cardiology",
+  "effective_date": "2026-01-01",
+  "source": "internal",
+  "access_level": "standard",
+  "disclaimer": "SYNTHETIC TEST DATA \u2014 This document was generated for RAG system development and testing only. It does not represent real clinical guidance, a real hospital policy, or real patient information. Do not use for actual patient care.",
+  "screen_name": "Cardiology Report Sign-off",
+  "purpose": "Defines the fields, preconditions, and structure of the 'Cardiology Report Sign-off' screen within workflow WF_002.",
+  "fields": [
+    "Final Interpretation",
+    "Critical Value Flag",
+    "Sign-off Timestamp"
+  ],
+  "preconditions": [
+    "ECG waveform review has been completed"
+  ],
+  "postconditions": [
+    "All required fields on 'Cardiology Report Sign-off' are captured and saved before advancing to the next screen."
+  ],
+  "validations": [
+    "Confirm final interpretation is present before sign-off",
+    "Confirm any critical rhythm finding triggers notification before the report is finalized"
+  ],
+  "common_errors": [
+    "Critical rhythm finding not linked to a notification event"
+  ],
+  "ui_elements": [
+    "Final Interpretation input control",
+    "Critical Value Flag input control",
+    "Sign-off Timestamp input control",
+    "Save button",
+    "Back button",
+    "Help icon"
+  ]
+}

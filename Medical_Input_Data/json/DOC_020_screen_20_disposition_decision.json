@@ -1,0 +1,43 @@
+{
+  "document_id": "DOC_020",
+  "document_name": "SCREEN_20_Disposition Decision",
+  "document_type": "screen_definition",
+  "version": "1.0",
+  "workflow_id": "WF_004",
+  "screen_id": "SCREEN_20",
+  "medical_domain": "emergency",
+  "effective_date": "2026-01-01",
+  "source": "internal",
+  "access_level": "standard",
+  "disclaimer": "SYNTHETIC TEST DATA \u2014 This document was generated for RAG system development and testing only. It does not represent real clinical guidance, a real hospital policy, or real patient information. Do not use for actual patient care.",
+  "screen_name": "Disposition Decision",
+  "purpose": "Defines the fields, preconditions, and structure of the 'Disposition Decision' screen within workflow WF_004.",
+  "fields": [
+    "Disposition",
+    "Responsible Provider",
+    "Disposition Time",
+    "Follow-up Instructions"
+  ],
+  "preconditions": [
+    "Allergy and medication reconciliation has been completed"
+  ],
+  "postconditions": [
+    "All required fields on 'Disposition Decision' are captured and saved before advancing to the next screen."
+  ],
+  "validations": [
+    "Confirm a disposition (admit, discharge, transfer, observation) is selected before the encounter can close",
+    "Confirm follow-up instructions are documented for discharge dispositions"
+  ],
+  "common_errors": [
+    "Discharge disposition selected with no follow-up instructions entered"
+  ],
+  "ui_elements": [
+    "Disposition input control",
+    "Responsible Provider input control",
+    "Disposition Time input control",
+    "Follow-up Instructions input control",
+    "Save button",
+    "Back button",
+    "Help icon"
+  ]
+}

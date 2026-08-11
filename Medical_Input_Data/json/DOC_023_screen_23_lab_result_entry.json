@@ -1,0 +1,43 @@
+{
+  "document_id": "DOC_023",
+  "document_name": "SCREEN_23_Lab Result Entry",
+  "document_type": "screen_definition",
+  "version": "1.0",
+  "workflow_id": "WF_005",
+  "screen_id": "SCREEN_23",
+  "medical_domain": "laboratory",
+  "effective_date": "2026-01-01",
+  "source": "internal",
+  "access_level": "standard",
+  "disclaimer": "SYNTHETIC TEST DATA \u2014 This document was generated for RAG system development and testing only. It does not represent real clinical guidance, a real hospital policy, or real patient information. Do not use for actual patient care.",
+  "screen_name": "Lab Result Entry",
+  "purpose": "Defines the fields, preconditions, and structure of the 'Lab Result Entry' screen within workflow WF_005.",
+  "fields": [
+    "Result Value",
+    "Unit",
+    "Reference Range",
+    "Result Status"
+  ],
+  "preconditions": [
+    "Specimen has passed labeling verification and been processed"
+  ],
+  "postconditions": [
+    "All required fields on 'Lab Result Entry' are captured and saved before advancing to the next screen."
+  ],
+  "validations": [
+    "Confirm result values include units and are compared against the reference range before release",
+    "Confirm results outside the reference range are flagged, not released as routine"
+  ],
+  "common_errors": [
+    "Result released without a unit specified"
+  ],
+  "ui_elements": [
+    "Result Value input control",
+    "Unit input control",
+    "Reference Range input control",
+    "Result Status input control",
+    "Save button",
+    "Back button",
+    "Help icon"
+  ]
+}

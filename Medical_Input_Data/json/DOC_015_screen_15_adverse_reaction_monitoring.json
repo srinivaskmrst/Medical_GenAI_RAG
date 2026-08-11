@@ -1,0 +1,44 @@
+{
+  "document_id": "DOC_015",
+  "document_name": "SCREEN_15_Adverse Reaction Monitoring",
+  "document_type": "screen_definition",
+  "version": "1.0",
+  "workflow_id": "WF_003",
+  "screen_id": "SCREEN_15",
+  "medical_domain": "pharmacy",
+  "effective_date": "2026-01-01",
+  "source": "internal",
+  "access_level": "standard",
+  "disclaimer": "SYNTHETIC TEST DATA \u2014 This document was generated for RAG system development and testing only. It does not represent real clinical guidance, a real hospital policy, or real patient information. Do not use for actual patient care.",
+  "screen_name": "Adverse Reaction Monitoring",
+  "purpose": "Defines the fields, preconditions, and structure of the 'Adverse Reaction Monitoring' screen within workflow WF_003.",
+  "fields": [
+    "Monitoring Interval",
+    "Observed Reaction",
+    "Severity",
+    "Action Taken"
+  ],
+  "preconditions": [
+    "Administration has been documented"
+  ],
+  "postconditions": [
+    "All required fields on 'Adverse Reaction Monitoring' are captured and saved before advancing to the next screen."
+  ],
+  "validations": [
+    "Confirm a monitoring interval appropriate to the medication class is scheduled",
+    "Confirm any observed reaction of moderate or higher severity triggers an alert to the care team"
+  ],
+  "common_errors": [
+    "Monitoring interval left at default for a high-alert medication",
+    "Reaction logged without severity classification"
+  ],
+  "ui_elements": [
+    "Monitoring Interval input control",
+    "Observed Reaction input control",
+    "Severity input control",
+    "Action Taken input control",
+    "Save button",
+    "Back button",
+    "Help icon"
+  ]
+}

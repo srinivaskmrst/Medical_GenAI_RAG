@@ -1,0 +1,45 @@
+{
+  "document_id": "DOC_006",
+  "document_name": "SCREEN_06_Report Finalization & Sign-off",
+  "document_type": "screen_definition",
+  "version": "1.0",
+  "workflow_id": "WF_001",
+  "screen_id": "SCREEN_06",
+  "medical_domain": "radiology",
+  "effective_date": "2026-01-01",
+  "source": "internal",
+  "access_level": "standard",
+  "disclaimer": "SYNTHETIC TEST DATA \u2014 This document was generated for RAG system development and testing only. It does not represent real clinical guidance, a real hospital policy, or real patient information. Do not use for actual patient care.",
+  "screen_name": "Report Finalization & Sign-off",
+  "purpose": "Defines the fields, preconditions, and structure of the 'Report Finalization & Sign-off' screen within workflow WF_001.",
+  "fields": [
+    "Report Text",
+    "Impression",
+    "Critical Finding Flag",
+    "Sign-off Timestamp"
+  ],
+  "preconditions": [
+    "Radiologist review has been completed"
+  ],
+  "postconditions": [
+    "All required fields on 'Report Finalization & Sign-off' are captured and saved before advancing to the next screen."
+  ],
+  "validations": [
+    "Confirm an impression section is present before the report can be signed off",
+    "Confirm critical findings trigger the critical-result notification workflow before sign-off completes",
+    "Confirm the report cannot be amended after sign-off without a formal addendum"
+  ],
+  "common_errors": [
+    "Report signed off with an empty impression field",
+    "Critical finding flagged but notification not triggered"
+  ],
+  "ui_elements": [
+    "Report Text input control",
+    "Impression input control",
+    "Critical Finding Flag input control",
+    "Sign-off Timestamp input control",
+    "Save button",
+    "Back button",
+    "Help icon"
+  ]
+}

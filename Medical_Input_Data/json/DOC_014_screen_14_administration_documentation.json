@@ -1,0 +1,43 @@
+{
+  "document_id": "DOC_014",
+  "document_name": "SCREEN_14_Administration Documentation",
+  "document_type": "screen_definition",
+  "version": "1.0",
+  "workflow_id": "WF_003",
+  "screen_id": "SCREEN_14",
+  "medical_domain": "pharmacy",
+  "effective_date": "2026-01-01",
+  "source": "internal",
+  "access_level": "standard",
+  "disclaimer": "SYNTHETIC TEST DATA \u2014 This document was generated for RAG system development and testing only. It does not represent real clinical guidance, a real hospital policy, or real patient information. Do not use for actual patient care.",
+  "screen_name": "Administration Documentation",
+  "purpose": "Defines the fields, preconditions, and structure of the 'Administration Documentation' screen within workflow WF_003.",
+  "fields": [
+    "Administration Time",
+    "Administering Clinician",
+    "Site of Administration",
+    "Patient Response"
+  ],
+  "preconditions": [
+    "Barcode medication scan has been completed successfully"
+  ],
+  "postconditions": [
+    "All required fields on 'Administration Documentation' are captured and saved before advancing to the next screen."
+  ],
+  "validations": [
+    "Confirm administration time is captured at the point of care, not entered retroactively",
+    "Confirm administering clinician ID matches the logged-in user"
+  ],
+  "common_errors": [
+    "Administration time backdated beyond the allowed documentation window"
+  ],
+  "ui_elements": [
+    "Administration Time input control",
+    "Administering Clinician input control",
+    "Site of Administration input control",
+    "Patient Response input control",
+    "Save button",
+    "Back button",
+    "Help icon"
+  ]
+}

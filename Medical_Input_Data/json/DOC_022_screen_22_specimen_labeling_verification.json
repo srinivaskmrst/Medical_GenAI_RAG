@@ -1,0 +1,42 @@
+{
+  "document_id": "DOC_022",
+  "document_name": "SCREEN_22_Specimen Labeling Verification",
+  "document_type": "screen_definition",
+  "version": "1.0",
+  "workflow_id": "WF_005",
+  "screen_id": "SCREEN_22",
+  "medical_domain": "laboratory",
+  "effective_date": "2026-01-01",
+  "source": "internal",
+  "access_level": "standard",
+  "disclaimer": "SYNTHETIC TEST DATA \u2014 This document was generated for RAG system development and testing only. It does not represent real clinical guidance, a real hospital policy, or real patient information. Do not use for actual patient care.",
+  "screen_name": "Specimen Labeling Verification",
+  "purpose": "Defines the fields, preconditions, and structure of the 'Specimen Labeling Verification' screen within workflow WF_005.",
+  "fields": [
+    "Label Printed At Bedside",
+    "Patient Identifiers on Label",
+    "Collector ID"
+  ],
+  "preconditions": [
+    "Specimen has been physically collected"
+  ],
+  "postconditions": [
+    "All required fields on 'Specimen Labeling Verification' are captured and saved before advancing to the next screen."
+  ],
+  "validations": [
+    "Confirm the label was printed and applied at the patient's bedside, not in advance",
+    "Confirm two patient identifiers on the label match the patient's wristband"
+  ],
+  "common_errors": [
+    "Label printed prior to collection rather than at bedside",
+    "Identifier mismatch between label and wristband"
+  ],
+  "ui_elements": [
+    "Label Printed At Bedside input control",
+    "Patient Identifiers on Label input control",
+    "Collector ID input control",
+    "Save button",
+    "Back button",
+    "Help icon"
+  ]
+}

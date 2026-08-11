@@ -1,0 +1,43 @@
+{
+  "document_id": "DOC_024",
+  "document_name": "SCREEN_24_Critical Value Notification",
+  "document_type": "screen_definition",
+  "version": "1.0",
+  "workflow_id": "WF_005",
+  "screen_id": "SCREEN_24",
+  "medical_domain": "laboratory",
+  "effective_date": "2026-01-01",
+  "source": "internal",
+  "access_level": "standard",
+  "disclaimer": "SYNTHETIC TEST DATA \u2014 This document was generated for RAG system development and testing only. It does not represent real clinical guidance, a real hospital policy, or real patient information. Do not use for actual patient care.",
+  "screen_name": "Critical Value Notification",
+  "purpose": "Defines the fields, preconditions, and structure of the 'Critical Value Notification' screen within workflow WF_005.",
+  "fields": [
+    "Critical Value Flag",
+    "Notified Provider",
+    "Notification Time",
+    "Read-back Confirmation"
+  ],
+  "preconditions": [
+    "Lab result entry has identified a critical value"
+  ],
+  "postconditions": [
+    "All required fields on 'Critical Value Notification' are captured and saved before advancing to the next screen."
+  ],
+  "validations": [
+    "Confirm the responsible provider is notified within the institution's defined critical-value window",
+    "Confirm a read-back confirmation is documented for verbal notifications"
+  ],
+  "common_errors": [
+    "Critical value notification logged without a read-back confirmation"
+  ],
+  "ui_elements": [
+    "Critical Value Flag input control",
+    "Notified Provider input control",
+    "Notification Time input control",
+    "Read-back Confirmation input control",
+    "Save button",
+    "Back button",
+    "Help icon"
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "document_id": "DOC_012",
+  "document_name": "SCREEN_12_Five Rights Verification",
+  "document_type": "screen_definition",
+  "version": "1.0",
+  "workflow_id": "WF_003",
+  "screen_id": "SCREEN_12",
+  "medical_domain": "pharmacy",
+  "effective_date": "2026-01-01",
+  "source": "internal",
+  "access_level": "standard",
+  "disclaimer": "SYNTHETIC TEST DATA \u2014 This document was generated for RAG system development and testing only. It does not represent real clinical guidance, a real hospital policy, or real patient information. Do not use for actual patient care.",
+  "screen_name": "Five Rights Verification",
+  "purpose": "Defines the fields, preconditions, and structure of the 'Five Rights Verification' screen within workflow WF_003.",
+  "fields": [
+    "Right Patient",
+    "Right Medication",
+    "Right Dose",
+    "Right Route",
+    "Right Time"
+  ],
+  "preconditions": [
+    "Medication order review has been completed"
+  ],
+  "postconditions": [
+    "All required fields on 'Five Rights Verification' are captured and saved before advancing to the next screen."
+  ],
+  "validations": [
+    "Confirm all five rights are individually checked before proceeding to barcode scan",
+    "Confirm the administration window (right time) is still valid at the point of verification"
+  ],
+  "common_errors": [
+    "One or more of the five rights left unchecked",
+    "Administration attempted outside the valid time window"
+  ],
+  "ui_elements": [
+    "Right Patient input control",
+    "Right Medication input control",
+    "Right Dose input control",
+    "Right Route input control",
+    "Right Time input control",
+    "Save button",
+    "Back button",
+    "Help icon"
+  ]
+}

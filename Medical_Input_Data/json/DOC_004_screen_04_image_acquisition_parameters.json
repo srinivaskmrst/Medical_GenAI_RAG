@@ -1,0 +1,45 @@
+{
+  "document_id": "DOC_004",
+  "document_name": "SCREEN_04_Image Acquisition Parameters",
+  "document_type": "screen_definition",
+  "version": "1.0",
+  "workflow_id": "WF_001",
+  "screen_id": "SCREEN_04",
+  "medical_domain": "radiology",
+  "effective_date": "2026-01-01",
+  "source": "internal",
+  "access_level": "standard",
+  "disclaimer": "SYNTHETIC TEST DATA \u2014 This document was generated for RAG system development and testing only. It does not represent real clinical guidance, a real hospital policy, or real patient information. Do not use for actual patient care.",
+  "screen_name": "Image Acquisition Parameters",
+  "purpose": "Defines the fields, preconditions, and structure of the 'Image Acquisition Parameters' screen within workflow WF_001.",
+  "fields": [
+    "Protocol Name",
+    "Slice Thickness",
+    "Field of View",
+    "Technologist ID"
+  ],
+  "preconditions": [
+    "Contrast safety screening has been completed"
+  ],
+  "postconditions": [
+    "All required fields on 'Image Acquisition Parameters' are captured and saved before advancing to the next screen."
+  ],
+  "validations": [
+    "Confirm the acquisition protocol matches the clinical indication",
+    "Confirm technologist ID is captured for the acquisition record",
+    "Confirm image count matches the expected series count for the protocol"
+  ],
+  "common_errors": [
+    "Protocol mismatch versus clinical indication",
+    "Incomplete series (image count below expected minimum)"
+  ],
+  "ui_elements": [
+    "Protocol Name input control",
+    "Slice Thickness input control",
+    "Field of View input control",
+    "Technologist ID input control",
+    "Save button",
+    "Back button",
+    "Help icon"
+  ]
+}

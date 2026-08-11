@@ -1,0 +1,48 @@
+{
+  "document_id": "DOC_001",
+  "document_name": "SCREEN_01_Patient Identification & Order Verification",
+  "document_type": "screen_definition",
+  "version": "1.0",
+  "workflow_id": "WF_001",
+  "screen_id": "SCREEN_01",
+  "medical_domain": "radiology",
+  "effective_date": "2026-01-01",
+  "source": "internal",
+  "access_level": "standard",
+  "disclaimer": "SYNTHETIC TEST DATA \u2014 This document was generated for RAG system development and testing only. It does not represent real clinical guidance, a real hospital policy, or real patient information. Do not use for actual patient care.",
+  "screen_name": "Patient Identification & Order Verification",
+  "purpose": "Defines the fields, preconditions, and structure of the 'Patient Identification & Order Verification' screen within workflow WF_001.",
+  "fields": [
+    "Patient ID",
+    "Date of Birth",
+    "Ordering Physician",
+    "Imaging Order Number",
+    "Order Priority"
+  ],
+  "preconditions": [
+    "An active imaging order exists in the system",
+    "Patient has been registered for the current encounter"
+  ],
+  "postconditions": [
+    "All required fields on 'Patient Identification & Order Verification' are captured and saved before advancing to the next screen."
+  ],
+  "validations": [
+    "Confirm two patient identifiers (name and date of birth) match the order",
+    "Confirm the imaging order number is active and not cancelled",
+    "Confirm order priority (routine, urgent, STAT) is correctly reflected"
+  ],
+  "common_errors": [
+    "Order number entered does not match any active order",
+    "Patient identifiers mismatch between screen and order record"
+  ],
+  "ui_elements": [
+    "Patient ID input control",
+    "Date of Birth input control",
+    "Ordering Physician input control",
+    "Imaging Order Number input control",
+    "Order Priority input control",
+    "Save button",
+    "Back button",
+    "Help icon"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "document_id": "DOC_019",
+  "document_name": "SCREEN_19_Allergy & Medication Reconciliation",
+  "document_type": "screen_definition",
+  "version": "1.0",
+  "workflow_id": "WF_004",
+  "screen_id": "SCREEN_19",
+  "medical_domain": "emergency",
+  "effective_date": "2026-01-01",
+  "source": "internal",
+  "access_level": "standard",
+  "disclaimer": "SYNTHETIC TEST DATA \u2014 This document was generated for RAG system development and testing only. It does not represent real clinical guidance, a real hospital policy, or real patient information. Do not use for actual patient care.",
+  "screen_name": "Allergy & Medication Reconciliation",
+  "purpose": "Defines the fields, preconditions, and structure of the 'Allergy & Medication Reconciliation' screen within workflow WF_004.",
+  "fields": [
+    "Known Allergies",
+    "Home Medication List",
+    "Reconciliation Source"
+  ],
+  "preconditions": [
+    "Vital signs capture has been completed"
+  ],
+  "postconditions": [
+    "All required fields on 'Allergy & Medication Reconciliation' are captured and saved before advancing to the next screen."
+  ],
+  "validations": [
+    "Confirm allergy status is explicitly recorded, including a positive 'no known allergies' entry rather than a blank field",
+    "Confirm the home medication list source (patient report, pharmacy record, prior visit) is documented"
+  ],
+  "common_errors": [
+    "Allergy field left blank rather than explicitly marked 'none known'"
+  ],
+  "ui_elements": [
+    "Known Allergies input control",
+    "Home Medication List input control",
+    "Reconciliation Source input control",
+    "Save button",
+    "Back button",
+    "Help icon"
+  ]
+}

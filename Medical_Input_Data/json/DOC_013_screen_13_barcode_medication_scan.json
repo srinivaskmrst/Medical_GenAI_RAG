@@ -1,0 +1,42 @@
+{
+  "document_id": "DOC_013",
+  "document_name": "SCREEN_13_Barcode Medication Scan",
+  "document_type": "screen_definition",
+  "version": "1.0",
+  "workflow_id": "WF_003",
+  "screen_id": "SCREEN_13",
+  "medical_domain": "pharmacy",
+  "effective_date": "2026-01-01",
+  "source": "internal",
+  "access_level": "standard",
+  "disclaimer": "SYNTHETIC TEST DATA \u2014 This document was generated for RAG system development and testing only. It does not represent real clinical guidance, a real hospital policy, or real patient information. Do not use for actual patient care.",
+  "screen_name": "Barcode Medication Scan",
+  "purpose": "Defines the fields, preconditions, and structure of the 'Barcode Medication Scan' screen within workflow WF_003.",
+  "fields": [
+    "Patient Wristband Scan",
+    "Medication Barcode Scan",
+    "Scan Match Result"
+  ],
+  "preconditions": [
+    "Five rights verification has been completed"
+  ],
+  "postconditions": [
+    "All required fields on 'Barcode Medication Scan' are captured and saved before advancing to the next screen."
+  ],
+  "validations": [
+    "Confirm both patient and medication barcodes are scanned before administration can be documented",
+    "Confirm a scan mismatch blocks progression until resolved"
+  ],
+  "common_errors": [
+    "Administration documented despite a scan mismatch",
+    "Manual override used without a documented reason"
+  ],
+  "ui_elements": [
+    "Patient Wristband Scan input control",
+    "Medication Barcode Scan input control",
+    "Scan Match Result input control",
+    "Save button",
+    "Back button",
+    "Help icon"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "document_id": "DOC_009",
+  "document_name": "SCREEN_09_ECG Waveform Review",
+  "document_type": "screen_definition",
+  "version": "1.0",
+  "workflow_id": "WF_002",
+  "screen_id": "SCREEN_09",
+  "medical_domain": "cardiology",
+  "effective_date": "2026-01-01",
+  "source": "internal",
+  "access_level": "standard",
+  "disclaimer": "SYNTHETIC TEST DATA \u2014 This document was generated for RAG system development and testing only. It does not represent real clinical guidance, a real hospital policy, or real patient information. Do not use for actual patient care.",
+  "screen_name": "ECG Waveform Review",
+  "purpose": "Defines the fields, preconditions, and structure of the 'ECG Waveform Review' screen within workflow WF_002.",
+  "fields": [
+    "Waveform Quality",
+    "Interpreting Cardiologist",
+    "Preliminary Interpretation"
+  ],
+  "preconditions": [
+    "ECG acquisition has been completed"
+  ],
+  "postconditions": [
+    "All required fields on 'ECG Waveform Review' are captured and saved before advancing to the next screen."
+  ],
+  "validations": [
+    "Confirm waveform quality is marked acceptable before interpretation begins",
+    "Confirm a preliminary interpretation is entered before the study moves to sign-off"
+  ],
+  "common_errors": [
+    "Poor-quality waveform reviewed without a repeat-acquisition flag",
+    "Interpretation field left blank"
+  ],
+  "ui_elements": [
+    "Waveform Quality input control",
+    "Interpreting Cardiologist input control",
+    "Preliminary Interpretation input control",
+    "Save button",
+    "Back button",
+    "Help icon"
+  ]
+}

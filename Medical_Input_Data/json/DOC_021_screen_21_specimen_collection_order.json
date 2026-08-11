@@ -1,0 +1,43 @@
+{
+  "document_id": "DOC_021",
+  "document_name": "SCREEN_21_Specimen Collection Order",
+  "document_type": "screen_definition",
+  "version": "1.0",
+  "workflow_id": "WF_005",
+  "screen_id": "SCREEN_21",
+  "medical_domain": "laboratory",
+  "effective_date": "2026-01-01",
+  "source": "internal",
+  "access_level": "standard",
+  "disclaimer": "SYNTHETIC TEST DATA \u2014 This document was generated for RAG system development and testing only. It does not represent real clinical guidance, a real hospital policy, or real patient information. Do not use for actual patient care.",
+  "screen_name": "Specimen Collection Order",
+  "purpose": "Defines the fields, preconditions, and structure of the 'Specimen Collection Order' screen within workflow WF_005.",
+  "fields": [
+    "Test Ordered",
+    "Specimen Type",
+    "Collection Priority",
+    "Ordering Provider"
+  ],
+  "preconditions": [
+    "An active lab order exists for the patient"
+  ],
+  "postconditions": [
+    "All required fields on 'Specimen Collection Order' are captured and saved before advancing to the next screen."
+  ],
+  "validations": [
+    "Confirm specimen type matches the requirements of the ordered test",
+    "Confirm collection priority (routine vs. STAT) is reflected before the specimen is collected"
+  ],
+  "common_errors": [
+    "Specimen type selected does not match the requirements of the ordered test"
+  ],
+  "ui_elements": [
+    "Test Ordered input control",
+    "Specimen Type input control",
+    "Collection Priority input control",
+    "Ordering Provider input control",
+    "Save button",
+    "Back button",
+    "Help icon"
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "document_id": "DOC_008",
+  "document_name": "SCREEN_08_ECG Acquisition & Lead Placement Check",
+  "document_type": "screen_definition",
+  "version": "1.0",
+  "workflow_id": "WF_002",
+  "screen_id": "SCREEN_08",
+  "medical_domain": "cardiology",
+  "effective_date": "2026-01-01",
+  "source": "internal",
+  "access_level": "standard",
+  "disclaimer": "SYNTHETIC TEST DATA \u2014 This document was generated for RAG system development and testing only. It does not represent real clinical guidance, a real hospital policy, or real patient information. Do not use for actual patient care.",
+  "screen_name": "ECG Acquisition & Lead Placement Check",
+  "purpose": "Defines the fields, preconditions, and structure of the 'ECG Acquisition & Lead Placement Check' screen within workflow WF_002.",
+  "fields": [
+    "Lead Placement Confirmed",
+    "Heart Rate",
+    "Rhythm Notes",
+    "Technician ID"
+  ],
+  "preconditions": [
+    "Cardiology consult intake has been completed"
+  ],
+  "postconditions": [
+    "All required fields on 'ECG Acquisition & Lead Placement Check' are captured and saved before advancing to the next screen."
+  ],
+  "validations": [
+    "Confirm lead placement is checked and confirmed before acquisition begins",
+    "Confirm heart rate captured is within a physiologically plausible range (30-250 bpm) or flagged for review"
+  ],
+  "common_errors": [
+    "Lead placement checkbox left unconfirmed",
+    "Heart rate value outside plausible range not flagged"
+  ],
+  "ui_elements": [
+    "Lead Placement Confirmed input control",
+    "Heart Rate input control",
+    "Rhythm Notes input control",
+    "Technician ID input control",
+    "Save button",
+    "Back button",
+    "Help icon"
+  ]
+}

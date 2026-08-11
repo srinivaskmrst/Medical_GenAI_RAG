@@ -1,0 +1,44 @@
+{
+  "document_id": "DOC_007",
+  "document_name": "SCREEN_07_Cardiology Consult Intake",
+  "document_type": "screen_definition",
+  "version": "1.0",
+  "workflow_id": "WF_002",
+  "screen_id": "SCREEN_07",
+  "medical_domain": "cardiology",
+  "effective_date": "2026-01-01",
+  "source": "internal",
+  "access_level": "standard",
+  "disclaimer": "SYNTHETIC TEST DATA \u2014 This document was generated for RAG system development and testing only. It does not represent real clinical guidance, a real hospital policy, or real patient information. Do not use for actual patient care.",
+  "screen_name": "Cardiology Consult Intake",
+  "purpose": "Defines the fields, preconditions, and structure of the 'Cardiology Consult Intake' screen within workflow WF_002.",
+  "fields": [
+    "Referral Reason",
+    "Referring Provider",
+    "Cardiac History Summary",
+    "Current Medications"
+  ],
+  "preconditions": [
+    "A cardiology consult order exists for the patient"
+  ],
+  "postconditions": [
+    "All required fields on 'Cardiology Consult Intake' are captured and saved before advancing to the next screen."
+  ],
+  "validations": [
+    "Confirm referral reason is documented before the consult can proceed",
+    "Confirm current cardiac medications list has been reconciled"
+  ],
+  "common_errors": [
+    "Referral reason field left as free text default placeholder",
+    "Medication list not reconciled against pharmacy record"
+  ],
+  "ui_elements": [
+    "Referral Reason input control",
+    "Referring Provider input control",
+    "Cardiac History Summary input control",
+    "Current Medications input control",
+    "Save button",
+    "Back button",
+    "Help icon"
+  ]
+}

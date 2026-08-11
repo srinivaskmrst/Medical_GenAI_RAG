@@ -1,0 +1,43 @@
+{
+  "document_id": "DOC_016",
+  "document_name": "SCREEN_16_Emergency Intake & Chief Complaint",
+  "document_type": "screen_definition",
+  "version": "1.0",
+  "workflow_id": "WF_004",
+  "screen_id": "SCREEN_16",
+  "medical_domain": "emergency",
+  "effective_date": "2026-01-01",
+  "source": "internal",
+  "access_level": "standard",
+  "disclaimer": "SYNTHETIC TEST DATA \u2014 This document was generated for RAG system development and testing only. It does not represent real clinical guidance, a real hospital policy, or real patient information. Do not use for actual patient care.",
+  "screen_name": "Emergency Intake & Chief Complaint",
+  "purpose": "Defines the fields, preconditions, and structure of the 'Emergency Intake & Chief Complaint' screen within workflow WF_004.",
+  "fields": [
+    "Chief Complaint",
+    "Arrival Mode",
+    "Arrival Time",
+    "Accompanying Person"
+  ],
+  "preconditions": [
+    "Patient has presented to the emergency department and been registered"
+  ],
+  "postconditions": [
+    "All required fields on 'Emergency Intake & Chief Complaint' are captured and saved before advancing to the next screen."
+  ],
+  "validations": [
+    "Confirm chief complaint is captured in the patient's or reporter's own words before triage begins",
+    "Confirm arrival time is logged automatically, not manually entered"
+  ],
+  "common_errors": [
+    "Chief complaint field copied from a prior visit rather than the current presentation"
+  ],
+  "ui_elements": [
+    "Chief Complaint input control",
+    "Arrival Mode input control",
+    "Arrival Time input control",
+    "Accompanying Person input control",
+    "Save button",
+    "Back button",
+    "Help icon"
+  ]
+}

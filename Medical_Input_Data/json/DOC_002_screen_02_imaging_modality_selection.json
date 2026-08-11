@@ -1,0 +1,45 @@
+{
+  "document_id": "DOC_002",
+  "document_name": "SCREEN_02_Imaging Modality Selection",
+  "document_type": "screen_definition",
+  "version": "1.0",
+  "workflow_id": "WF_001",
+  "screen_id": "SCREEN_02",
+  "medical_domain": "radiology",
+  "effective_date": "2026-01-01",
+  "source": "internal",
+  "access_level": "standard",
+  "disclaimer": "SYNTHETIC TEST DATA \u2014 This document was generated for RAG system development and testing only. It does not represent real clinical guidance, a real hospital policy, or real patient information. Do not use for actual patient care.",
+  "screen_name": "Imaging Modality Selection",
+  "purpose": "Defines the fields, preconditions, and structure of the 'Imaging Modality Selection' screen within workflow WF_001.",
+  "fields": [
+    "Modality",
+    "Body Region",
+    "Laterality",
+    "Clinical Indication"
+  ],
+  "preconditions": [
+    "Patient identification has been completed on the prior screen"
+  ],
+  "postconditions": [
+    "All required fields on 'Imaging Modality Selection' are captured and saved before advancing to the next screen."
+  ],
+  "validations": [
+    "Confirm selected modality matches the ordering physician's request",
+    "Confirm laterality (left/right/bilateral) is specified where applicable",
+    "Confirm a clinical indication is documented before proceeding"
+  ],
+  "common_errors": [
+    "Laterality left blank for a paired body region",
+    "Modality selected does not match the order"
+  ],
+  "ui_elements": [
+    "Modality input control",
+    "Body Region input control",
+    "Laterality input control",
+    "Clinical Indication input control",
+    "Save button",
+    "Back button",
+    "Help icon"
+  ]
+}

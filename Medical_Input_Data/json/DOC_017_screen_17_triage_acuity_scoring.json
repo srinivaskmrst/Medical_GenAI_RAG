@@ -1,0 +1,41 @@
+{
+  "document_id": "DOC_017",
+  "document_name": "SCREEN_17_Triage Acuity Scoring",
+  "document_type": "screen_definition",
+  "version": "1.0",
+  "workflow_id": "WF_004",
+  "screen_id": "SCREEN_17",
+  "medical_domain": "emergency",
+  "effective_date": "2026-01-01",
+  "source": "internal",
+  "access_level": "standard",
+  "disclaimer": "SYNTHETIC TEST DATA \u2014 This document was generated for RAG system development and testing only. It does not represent real clinical guidance, a real hospital policy, or real patient information. Do not use for actual patient care.",
+  "screen_name": "Triage Acuity Scoring",
+  "purpose": "Defines the fields, preconditions, and structure of the 'Triage Acuity Scoring' screen within workflow WF_004.",
+  "fields": [
+    "Acuity Level",
+    "Scoring Tool Used",
+    "Triage Nurse ID"
+  ],
+  "preconditions": [
+    "Emergency intake has been completed"
+  ],
+  "postconditions": [
+    "All required fields on 'Triage Acuity Scoring' are captured and saved before advancing to the next screen."
+  ],
+  "validations": [
+    "Confirm an acuity level is assigned using a documented scoring tool before the patient proceeds",
+    "Confirm level 1-2 (highest acuity) assignments trigger immediate care team notification"
+  ],
+  "common_errors": [
+    "High-acuity assignment made without triggering the immediate-notification workflow"
+  ],
+  "ui_elements": [
+    "Acuity Level input control",
+    "Scoring Tool Used input control",
+    "Triage Nurse ID input control",
+    "Save button",
+    "Back button",
+    "Help icon"
+  ]
+}
