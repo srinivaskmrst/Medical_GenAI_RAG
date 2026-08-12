@@ -1,5 +1,7 @@
 """Chunking logic for ingested documents."""
 
+import os
+
 from ingestion.loaders import DocumentLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
@@ -10,9 +12,17 @@ class DocumentChunker:
         self.file_path = file_path
         self.loader = DocumentLoader(file_path)
 
-    def ReadEachFileFromDirectory(self) -> list:
+    def ReadEachFileFromDirectory(self, directory_path: str) -> list:
         """Read each file from the directory and return a list of text content."""
-        text_content = self.loader.CallingLoader()
+        text_content = []
+        for entry in os.listdir(directory_path):
+            entry_path = os.path.join(directory_path, entry)
+            if not os.path.isfile(entry_path):
+                continue
+            try:
+                text_content.extend(DocumentLoader(entry_path).CallingLoader())
+            except ValueError:
+                continue
         return text_content
 
     def chunk_document(self) -> list:
