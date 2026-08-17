@@ -1,0 +1,1 @@
+"""Medical GenAI RAG platform."""

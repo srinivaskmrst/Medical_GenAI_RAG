@@ -23,6 +23,12 @@ ollama==0.4.5
 sentence-transformers==3.3.1
 torch==2.5.1
 
+# --- Google (Gemini) embeddings — optional, only used when
+# EMBEDDING_PROVIDER=google. Pinned with httpx below since it otherwise
+# pulls httpx>=0.28 which conflicts with the ollama client's <0.28 pin. ---
+google-genai==2.18.1
+httpx==0.27.2
+
 # --- Document parsing (Phase 7) ---
 pymupdf==1.25.1          # PDF
 pypdf==6.15.0             # PDF (alternate loader)
@@ -42,6 +48,7 @@ rank-bm25==0.2.2
 
 # --- UI (Phase 12) ---
 streamlit==1.41.1
+requests==2.34.2
 
 # --- Utilities ---
 tenacity==9.0.0          # retries for Ollama/Qdrant calls

@@ -23,3 +23,6 @@ env/
 .DS_Store
 Thumbs.db
 .vscode/
+
+# Local embedded Qdrant storage (fallback when QDRANT_ENDPOINT is unset)
+data/qdrant_storage/
