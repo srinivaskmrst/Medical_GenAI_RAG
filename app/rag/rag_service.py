@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import time
+import uuid
 from typing import Any
 
 from app.config.settings import get_settings
@@ -21,6 +23,7 @@ from app.retrieval.hybrid import HybridRetriever
 from app.retrieval.keyword import BM25Retriever, get_keyword_retriever
 from app.retrieval.reranker import Reranker
 from app.retrieval.semantic import SemanticRetriever
+from app.utils.step_logger import log_step, step_logger
 
 GUARDRAIL_BLOCKED_MESSAGE = (
     "This response was withheld by a safety guardrail. Please consult a qualified clinician."
@@ -83,53 +86,73 @@ class RAGService:
         top_k: int = 5,
         session_id: str | None = None,
     ) -> dict[str, Any]:
-        query = self.query_encoder.normalize(query)
-        self.safety_guardrail.validate_question(query)
-        self.input_guardrail.validate(query)
+        request_id = uuid.uuid4().hex[:8]
+        request_start = time.perf_counter()
+        step_logger.info(f"[{request_id}] ===== NEW QUERY session={session_id} top_k={top_k} query={query!r}")
 
-        query_vector = self.query_encoder.encode(query)
+        with log_step(request_id, "normalize_query"):
+            query = self.query_encoder.normalize(query)
+        with log_step(request_id, "safety_guardrail.validate_question"):
+            self.safety_guardrail.validate_question(query)
+        with log_step(request_id, "input_guardrail.validate"):
+            self.input_guardrail.validate(query)
 
-        cached = self.semantic_cache.lookup(query_vector)
+        with log_step(request_id, "encode_query"):
+            query_vector = self.query_encoder.encode(query)
+
+        with log_step(request_id, "semantic_cache.lookup"):
+            cached = self.semantic_cache.lookup(query_vector)
         if cached is not None:
+            total = time.perf_counter() - request_start
+            step_logger.info(f"[{request_id}] ===== CACHE HIT total={total:.3f}s")
             return cached
 
-        long_term_context = self.long_term_memory.retrieve(session_id, query_vector)
+        with log_step(request_id, "long_term_memory.retrieve"):
+            long_term_context = self.long_term_memory.retrieve(session_id, query_vector)
 
-        results = self.hybrid_retriever.retrieve(query=query, filters=filters, top_k=top_k)
-        results = self.authorization_filter.apply(results)
-        results = self.reranker.rerank(query, results)
+        with log_step(request_id, "hybrid_retriever.retrieve"):
+            results = self.hybrid_retriever.retrieve(query=query, filters=filters, top_k=top_k)
+        with log_step(request_id, "authorization_filter.apply"):
+            results = self.authorization_filter.apply(results)
+        with log_step(request_id, "reranker.rerank"):
+            results = self.reranker.rerank(query, results)
         if self.rerank_top_k:
             results = results[: self.rerank_top_k]
-        context_items = self.context_builder.build(results)
+        with log_step(request_id, "context_builder.build"):
+            context_items = self.context_builder.build(results)
 
-        context_sections = []
-        if long_term_context:
-            prior_text = "\n".join(f"[{item.get('role', 'user')}] {item.get('text', '')}" for item in long_term_context)
-            context_sections.append(f"PRIOR CONVERSATION CONTEXT (this session)\n{prior_text}")
-        if context_items:
-            context_sections.append(
-                "\n\n".join(
-                    f"Document: {item.get('document_id', 'unknown')} | Source: {item.get('source', 'unknown')} | Page: {item.get('page_number', 'n/a')}\n{item.get('text', '')}"
-                    for item in context_items
+        with log_step(request_id, "build_prompt"):
+            context_sections = []
+            if long_term_context:
+                prior_text = "\n".join(f"[{item.get('role', 'user')}] {item.get('text', '')}" for item in long_term_context)
+                context_sections.append(f"PRIOR CONVERSATION CONTEXT (this session)\n{prior_text}")
+            if context_items:
+                context_sections.append(
+                    "\n\n".join(
+                        f"Document: {item.get('document_id', 'unknown')} | Source: {item.get('source', 'unknown')} | Page: {item.get('page_number', 'n/a')}\n{item.get('text', '')}"
+                        for item in context_items
+                    )
                 )
-            )
 
-        if context_sections:
-            prompt = self.prompt_manager.build_qa_prompt(query, "\n\n".join(context_sections))
-        else:
-            prompt = self.prompt_manager.build_insufficient_context_prompt(query)
+            if context_sections:
+                prompt = self.prompt_manager.build_qa_prompt(query, "\n\n".join(context_sections))
+            else:
+                prompt = self.prompt_manager.build_insufficient_context_prompt(query)
 
-        answer = self.llm_provider.generate(prompt)
+        with log_step(request_id, "llm_provider.generate"):
+            answer = self.llm_provider.generate(prompt)
 
         guardrail_blocked = False
-        try:
-            self.output_guardrail.validate(answer)
-            self.safety_guardrail.validate_answer(answer)
-        except ValueError:
-            answer = GUARDRAIL_BLOCKED_MESSAGE
-            guardrail_blocked = True
+        with log_step(request_id, "output_guardrails.validate"):
+            try:
+                self.output_guardrail.validate(answer)
+                self.safety_guardrail.validate_answer(answer)
+            except ValueError:
+                answer = GUARDRAIL_BLOCKED_MESSAGE
+                guardrail_blocked = True
 
-        confidence = self.grounding_checker.check(answer, context_items)
+        with log_step(request_id, "grounding_checker.check"):
+            confidence = self.grounding_checker.check(answer, context_items)
 
         sources = [
             {
@@ -152,10 +175,17 @@ class RAGService:
         usage = {"tokens": len(answer.split())}
 
         if not guardrail_blocked:
-            self.semantic_cache.store(query, query_vector, answer, sources, retrieval_metadata, usage, confidence)
-            self.long_term_memory.store(session_id, "user", query, query_vector)
-            answer_vector = self.query_encoder.encode(answer) if answer.strip() else query_vector
-            self.long_term_memory.store(session_id, "assistant", answer, answer_vector)
+            with log_step(request_id, "semantic_cache.store"):
+                self.semantic_cache.store(query, query_vector, answer, sources, retrieval_metadata, usage, confidence)
+            with log_step(request_id, "long_term_memory.store[user]"):
+                self.long_term_memory.store(session_id, "user", query, query_vector)
+            with log_step(request_id, "encode_answer"):
+                answer_vector = self.query_encoder.encode(answer) if answer.strip() else query_vector
+            with log_step(request_id, "long_term_memory.store[assistant]"):
+                self.long_term_memory.store(session_id, "assistant", answer, answer_vector)
+
+        total = time.perf_counter() - request_start
+        step_logger.info(f"[{request_id}] ===== TOTAL {total:.3f}s")
 
         return {
             "answer": answer,

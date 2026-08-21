@@ -42,6 +42,7 @@ class DocumentChunker:
             chunk_size=chunk_size,
             chunk_overlap=chunk_overlap,
         )
+        self.skipped_files: List[dict[str, str]] = []
 
     def chunk_document(self) -> List[Chunk]:
         """Parse the document and split it into metadata-tagged chunks."""
@@ -65,13 +66,15 @@ class DocumentChunker:
     def chunk_directory(self, directory_path: str) -> List[Chunk]:
         """Chunk every supported file under a directory, recursing into subfolders."""
         all_chunks: List[Chunk] = []
+        self.skipped_files = []
         for root, dirs, files in os.walk(directory_path):
             dirs.sort()
             for entry in sorted(files):
                 entry_path = os.path.join(root, entry)
                 try:
                     all_chunks.extend(DocumentChunker(entry_path).chunk_document())
-                except Exception:
+                except Exception as exc:
                     logger.warning("Skipping %s: failed to chunk", entry_path, exc_info=True)
+                    self.skipped_files.append({"file_path": entry_path, "error": str(exc)})
                     continue
         return all_chunks

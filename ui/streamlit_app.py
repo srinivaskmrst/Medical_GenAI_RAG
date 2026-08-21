@@ -139,13 +139,25 @@ with tab_ingest:
     st.caption("Points at the same synthetic corpus this project ships with by default.")
     path = st.text_input("File or directory path", value="data/Medical_Input_Data")
 
+    def render_ingest_result(result: dict) -> None:
+        st.success(
+            f"{result.get('status')}: {result.get('num_chunks', 0)} chunks "
+            f"from `{result.get('file_path')}`"
+        )
+        skipped = result.get("skipped_files") or []
+        if skipped:
+            st.warning(f"{len(skipped)} file(s) were skipped and NOT indexed:")
+            with st.expander(f"Skipped files ({len(skipped)})", expanded=True):
+                for item in skipped:
+                    st.write(f"- **{item.get('file_path')}** — {item.get('error')}")
+
     col1, col2 = st.columns(2)
     with col1:
         if st.button("Chunk (dry run)", use_container_width=True):
             try:
                 resp = requests.post(api_url("/documents/ingest"), json={"file_path": path}, timeout=300)
                 resp.raise_for_status()
-                st.success(resp.json())
+                render_ingest_result(resp.json())
             except requests.RequestException as exc:
                 st.error(str(exc))
     with col2:
@@ -154,7 +166,7 @@ with tab_ingest:
                 try:
                     resp = requests.post(api_url("/documents/index"), json={"file_path": path}, timeout=1800)
                     resp.raise_for_status()
-                    st.success(resp.json())
+                    render_ingest_result(resp.json())
                 except requests.RequestException as exc:
                     st.error(str(exc))
 

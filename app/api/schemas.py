@@ -31,3 +31,4 @@ class IngestResponse(BaseModel):
     file_path: str
     num_chunks: int = 0
     ids: list[str] = Field(default_factory=list)
+    skipped_files: list[dict[str, str]] = Field(default_factory=list)
