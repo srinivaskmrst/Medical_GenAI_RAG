@@ -10,6 +10,7 @@ from fastapi.responses import JSONResponse
 from app.api.documents import router as documents_router
 from app.api.health import router as health_router
 from app.api.rag import router as rag_router
+from app.api.sessions import router as sessions_router
 from app.retrieval.keyword import get_keyword_retriever
 from app.vectorstore.factory import get_vector_store
 
@@ -31,6 +32,7 @@ app = FastAPI(title="Medical GenAI RAG", version="1.0.0", lifespan=lifespan)
 app.include_router(health_router, prefix="/api/v1")
 app.include_router(documents_router, prefix="/api/v1")
 app.include_router(rag_router, prefix="/api/v1")
+app.include_router(sessions_router, prefix="/api/v1")
 
 
 @app.exception_handler(ValueError)

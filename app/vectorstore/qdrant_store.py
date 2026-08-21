@@ -141,19 +141,20 @@ class QdrantVectorStore(VectorStore):
         )
         return [str(point["id"]) for point in points]
 
-    def search(self, vector: Sequence[float], top_k: int = 5, filters: dict[str, Any] | None = None) -> list[dict[str, Any]]:
-        q_filters = None
-        if filters:
-            must = []
-            for key, value in filters.items():
-                if value is None:
-                    continue
-                if key == "document_version" and value == "latest":
-                    continue
-                must.append(qmodels.FieldCondition(key=key, match=qmodels.MatchValue(value=value)))
-            if must:
-                q_filters = qmodels.Filter(must=must)
+    def _build_filter(self, filters: dict[str, Any] | None) -> qmodels.Filter | None:
+        if not filters:
+            return None
+        must = []
+        for key, value in filters.items():
+            if value is None:
+                continue
+            if key == "document_version" and value == "latest":
+                continue
+            must.append(qmodels.FieldCondition(key=key, match=qmodels.MatchValue(value=value)))
+        return qmodels.Filter(must=must) if must else None
 
+    def search(self, vector: Sequence[float], top_k: int = 5, filters: dict[str, Any] | None = None) -> list[dict[str, Any]]:
+        q_filters = self._build_filter(filters)
         query_vector = (self.vector_name, list(vector)) if self.vector_name else list(vector)
         result = self.client.search(
             collection_name=self.collection_name,
@@ -171,8 +172,9 @@ class QdrantVectorStore(VectorStore):
             for item in result
         ]
 
-    def scroll_all(self, batch_size: int = 256) -> list[dict[str, Any]]:
-        """Return every point's payload in the collection (paginated)."""
+    def scroll_all(self, batch_size: int = 256, filters: dict[str, Any] | None = None) -> list[dict[str, Any]]:
+        """Return every point's payload in the collection (paginated), optionally filtered."""
+        q_filters = self._build_filter(filters)
         records: list[dict[str, Any]] = []
         offset = None
         while True:
@@ -182,6 +184,7 @@ class QdrantVectorStore(VectorStore):
                     limit=batch_size,
                     offset=offset,
                     with_payload=True,
+                    scroll_filter=q_filters,
                 )
             except Exception:
                 break

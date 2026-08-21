@@ -35,6 +35,21 @@ def call_health() -> dict:
         return {"error": str(exc)}
 
 
+def call_sessions() -> list[dict]:
+    try:
+        resp = requests.get(api_url("/sessions"), timeout=10)
+        resp.raise_for_status()
+        return resp.json()
+    except requests.RequestException:
+        return []
+
+
+def call_session_messages(session_id: str) -> list[dict]:
+    resp = requests.get(api_url(f"/sessions/{session_id}/messages"), timeout=10)
+    resp.raise_for_status()
+    return resp.json().get("messages", [])
+
+
 def call_query(question: str, top_k: int) -> dict:
     resp = requests.post(
         api_url("/query"),
@@ -85,12 +100,41 @@ with st.sidebar:
             st.write(f"{badge(health.get('ollama'))} Ollama")
 
     st.divider()
-    st.caption(f"Session: `{st.session_state.session_id[:8]}`")
-    top_k = st.slider("Retrieval top_k", min_value=1, max_value=20, value=5)
-    if st.button("New session / clear chat", use_container_width=True):
+    st.subheader("💬 Chat History")
+    if st.button("➕ New chat", use_container_width=True):
         st.session_state.messages = []
         st.session_state.session_id = str(uuid.uuid4())
+        st.session_state.pop("sessions_cache", None)
         st.rerun()
+
+    if "sessions_cache" not in st.session_state:
+        st.session_state.sessions_cache = call_sessions()
+
+    sessions = st.session_state.sessions_cache
+    if sessions:
+        with st.container(height=250):
+            for entry in sessions:
+                sid = entry["session_id"]
+                is_current = sid == st.session_state.session_id
+                label = f"{'🟢 ' if is_current else ''}{entry.get('title') or 'Untitled conversation'}"
+                if st.button(label, key=f"session_{sid}", use_container_width=True, help=entry.get("title")):
+                    try:
+                        history = call_session_messages(sid)
+                        st.session_state.messages = [
+                            {"role": item["role"], "content": item["text"]}
+                            for item in history
+                            if item.get("role") and item.get("text")
+                        ]
+                        st.session_state.session_id = sid
+                        st.rerun()
+                    except requests.RequestException as exc:
+                        st.error(f"Failed to load conversation: {exc}")
+    else:
+        st.caption("No previous conversations yet.")
+
+    st.divider()
+    st.caption(f"Session: `{st.session_state.session_id[:8]}`")
+    top_k = st.slider("Retrieval top_k", min_value=1, max_value=20, value=5)
 
 tab_ask, tab_ingest, tab_health = st.tabs(["💬 Ask", "📄 Ingest Documents", "🩺 Health"])
 
@@ -133,6 +177,7 @@ with tab_ask:
                 render_sources(sources)
 
                 st.session_state.messages.append({"role": "assistant", "content": answer, "sources": sources})
+                st.session_state.pop("sessions_cache", None)
 
 with tab_ingest:
     st.subheader("Ingest documents into the vector store")

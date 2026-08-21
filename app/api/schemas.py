@@ -32,3 +32,21 @@ class IngestResponse(BaseModel):
     num_chunks: int = 0
     ids: list[str] = Field(default_factory=list)
     skipped_files: list[dict[str, str]] = Field(default_factory=list)
+
+
+class SessionSummary(BaseModel):
+    session_id: str
+    title: str
+    last_updated: float = 0.0
+    message_count: int = 0
+
+
+class SessionMessage(BaseModel):
+    role: str | None = None
+    text: str | None = None
+    created_at: float | None = None
+
+
+class SessionMessagesResponse(BaseModel):
+    session_id: str
+    messages: list[SessionMessage] = Field(default_factory=list)
