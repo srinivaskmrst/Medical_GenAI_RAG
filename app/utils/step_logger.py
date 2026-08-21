@@ -2,7 +2,7 @@
 
 Writes one line per pipeline step to D:\\MedialChatbot_Log.txt so response-time
 regressions can be traced to a specific stage (embedding, retrieval, LLM call, etc.)
-without needing to reproduce the issue interactively.
+without needing to reproduce the issue interactively. This is for code comment
 """
 
 from __future__ import annotations
